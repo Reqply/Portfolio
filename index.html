@@ -701,6 +701,7 @@ let current = 0;
 const filmstrip = document.getElementById('filmstrip');
 const pages = document.querySelectorAll('.page');
 const tabs = document.querySelectorAll('.tab');
+const viewport = document.getElementById('viewport');
 
 function render(){
   filmstrip.style.transform = `translateX(-${current*100}vw)`;
@@ -743,7 +744,6 @@ viewport.addEventListener('wheel', (e)=>{
 // swipe support
 let touchStartX = null;
 let touchStartY = null;
-const viewport = document.getElementById('viewport');
 viewport.addEventListener('touchstart', (e)=>{
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
