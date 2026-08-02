@@ -41,45 +41,17 @@ body{
   background-size:44px 44px;
 }
 
-/* ---------- STATUS BAR (signature element) ---------- */
-.status-bar{
-  position:fixed; top:0; left:0; right:0; z-index:20;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px 22px;
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:0.06em;
-  background:linear-gradient(to bottom, rgba(237,238,236,0.96), rgba(237,238,236,0.85));
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(4px);
-}
-.status-bar .brand{color:var(--ink); font-weight:500;}
-.status-bar .brand span{color:var(--ink-soft);}
-.status-build{display:flex; align-items:center; gap:16px;}
-.dot{
-  width:7px; height:7px; border-radius:50%;
-  background:var(--teal);
-  display:inline-block;
-  animation:pulse 2.2s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:1; box-shadow:0 0 0 0 rgba(46,111,99,0.35);}
-  50%{opacity:0.55; box-shadow:0 0 0 5px rgba(46,111,99,0);}
-}
-.status-build .tests{color:var(--teal); font-weight:600;}
-.status-build .label{color:var(--ink-soft);}
-
 /* ---------- VIEWPORT / FILMSTRIP ---------- */
 .pages-viewport{
   position:fixed; inset:0; z-index:5;
   overflow:hidden;
-  padding-top:46px;
+  padding-top:0;
   padding-bottom:64px;
 }
 .filmstrip{
   display:flex;
   height:100%;
-  width:600vw;
+  width:700vw;
   transition:transform .68s cubic-bezier(.65,.05,.24,1);
   will-change:transform;
 }
@@ -268,6 +240,29 @@ h1.page-title{
 .grid-2{
   display:grid; grid-template-columns:1fr 1fr; gap:16px;
 }
+.project-link{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.04em;
+  color:var(--ink); text-decoration:none;
+  border-bottom:1px solid var(--gold);
+  padding-bottom:2px;
+  transition:color .2s;
+}
+.project-link svg{width:13px; height:13px; stroke:var(--gold); transition:transform .2s;}
+.project-link:hover{color:var(--teal);}
+.project-link:hover svg{transform:translate(2px,-2px);}
+.stack-table{ display:flex; flex-direction:column; }
+.stack-row{
+  display:flex; gap:16px; padding:9px 0;
+  border-top:1px solid var(--line-soft);
+  font-size:13px;
+}
+.stack-row:first-child{border-top:none;}
+.stack-key{
+  font-family:var(--mono); font-size:11px; letter-spacing:.05em;
+  color:var(--gold); text-transform:uppercase; width:96px; flex-shrink:0;
+}
+.stack-val{ color:var(--ink-soft); }
 @media (max-width:640px){ .grid-2{grid-template-columns:1fr;} }
 
 p.body-text{
@@ -378,8 +373,6 @@ p.body-text{
 @media (max-width:640px){
   .tab-label{display:none;}
   .tab::after{content:attr(data-short);}
-  .status-bar{font-size:9.5px; padding:12px 14px;}
-  .status-build{gap:10px;}
   .page{padding:48px 6vw 56px;}
 }
 
@@ -394,15 +387,6 @@ p.body-text{
 <body>
 
 <div class="grid-bg"></div>
-
-<header class="status-bar">
-  <div class="brand">RONAK TAH <span>/ SOFTWARE ENGINEERING</span></div>
-  <div class="status-build">
-    <span class="dot"></span>
-    <span><span class="label">BUILD</span> <span class="tests">PASSING</span></span>
-    <span><span class="tests" id="testCounter">0/42</span> <span class="label">TESTS</span></span>
-  </div>
-</header>
 
 <div class="pages-viewport" id="viewport">
   <div class="filmstrip" id="filmstrip">
@@ -517,8 +501,64 @@ p.body-text{
       </div>
     </section>
 
-    <!-- PAGE 3 — EDUCATION -->
+    <!-- PAGE 3 — PROJECTS -->
     <section class="page" data-idx="3">
+      <div class="page-inner">
+        <div class="eyebrow reveal r1">projects.dev</div>
+        <h1 class="page-title reveal r2">Projects</h1>
+        <div class="divider reveal r2"></div>
+
+        <div class="card reveal r3">
+          <h3>Courtside <span class="tag">Live</span> <span class="tag">Full-Stack</span></h3>
+          <p class="body-text" style="margin-bottom:14px;">A full sports facility booking platform for Melbourne, built to replace phone calls and waitlists. Users browse courts, ovals and pools with real prices and locations, pick a date, see live time-slot availability, and book instantly. Admin accounts can add new facilities and generate time slots for them.</p>
+          <a class="project-link" href="https://sport-webiste-full-stack-five.vercel.app/" target="_blank" rel="noopener">
+            Visit Courtside
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+
+        <div class="grid-2 reveal r4">
+          <div class="card">
+            <h3>Core Flow</h3>
+            <ul>
+              <li>Browse facilities with real prices &amp; locations</li>
+              <li>Live time-slot availability, 9am–9pm</li>
+              <li>Sign up, log in, book a slot instantly</li>
+              <li>View and cancel bookings in "My Bookings"</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Extras</h3>
+            <ul>
+              <li>AI chat assistant grounded in live database data</li>
+              <li>Scoreboard/stadium visual identity</li>
+              <li>Parallax sport-emoji objects on scroll &amp; cursor</li>
+              <li>Canvas-based particle network background</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card reveal r5">
+          <h3>Tech Stack</h3>
+          <div class="stack-table">
+            <div class="stack-row"><span class="stack-key">Framework</span><span class="stack-val">Next.js 16 (App Router), TypeScript</span></div>
+            <div class="stack-row"><span class="stack-key">Database</span><span class="stack-val">PostgreSQL (Neon)</span></div>
+            <div class="stack-row"><span class="stack-key">ORM</span><span class="stack-val">Drizzle ORM</span></div>
+            <div class="stack-row"><span class="stack-key">Styling</span><span class="stack-val">Tailwind CSS</span></div>
+            <div class="stack-row"><span class="stack-key">Auth</span><span class="stack-val">Custom, bcrypt + signed JWT cookies (jose)</span></div>
+            <div class="stack-row"><span class="stack-key">Validation</span><span class="stack-val">Zod</span></div>
+            <div class="stack-row"><span class="stack-key">Animation</span><span class="stack-val">Framer Motion + Canvas API</span></div>
+            <div class="stack-row"><span class="stack-key">AI</span><span class="stack-val">Gemini API / Anthropic API</span></div>
+            <div class="stack-row"><span class="stack-key">Hosting</span><span class="stack-val">Vercel</span></div>
+          </div>
+        </div>
+
+        <div class="pull-quote reveal r6">Double-booking prevention is enforced at the database level, via a partial unique index rather than a UI check. If two people click the same slot at the same instant, the database itself guarantees only one booking succeeds, and the app catches the conflict with a friendly message instead of crashing.</div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 — EDUCATION -->
+    <section class="page" data-idx="4">
       <div class="page-inner">
         <div class="eyebrow reveal r1">education.yml</div>
         <h1 class="page-title reveal r2">Education &amp; Certifications</h1>
@@ -554,8 +594,8 @@ p.body-text{
       </div>
     </section>
 
-    <!-- PAGE 4 — SKILLS -->
-    <section class="page" data-idx="4">
+    <!-- PAGE 5 — SKILLS -->
+    <section class="page" data-idx="5">
       <div class="page-inner">
         <div class="eyebrow reveal r1">skills.json</div>
         <h1 class="page-title reveal r2">Skills</h1>
@@ -639,8 +679,8 @@ p.body-text{
       </div>
     </section>
 
-    <!-- PAGE 5 — CONTACT -->
-    <section class="page" data-idx="5">
+    <!-- PAGE 6 — CONTACT -->
+    <section class="page" data-idx="6">
       <div class="page-inner">
         <div class="eyebrow reveal r1">contact.sh</div>
         <h1 class="page-title reveal r2">Let's talk</h1>
@@ -686,9 +726,10 @@ p.body-text{
     <button class="tab" data-short="00" onclick="goTo(0)"><span class="tab-label">00 · intro.tsx</span></button>
     <button class="tab" data-short="01" onclick="goTo(1)"><span class="tab-label">01 · about.md</span></button>
     <button class="tab" data-short="02" onclick="goTo(2)"><span class="tab-label">02 · experience.log</span></button>
-    <button class="tab" data-short="03" onclick="goTo(3)"><span class="tab-label">03 · education.yml</span></button>
-    <button class="tab" data-short="04" onclick="goTo(4)"><span class="tab-label">04 · skills.json</span></button>
-    <button class="tab" data-short="05" onclick="goTo(5)"><span class="tab-label">05 · contact.sh</span></button>
+    <button class="tab" data-short="03" onclick="goTo(3)"><span class="tab-label">03 · projects.dev</span></button>
+    <button class="tab" data-short="04" onclick="goTo(4)"><span class="tab-label">04 · education.yml</span></button>
+    <button class="tab" data-short="05" onclick="goTo(5)"><span class="tab-label">05 · skills.json</span></button>
+    <button class="tab" data-short="06" onclick="goTo(6)"><span class="tab-label">06 · contact.sh</span></button>
   </div>
   <button class="nav-arrow" onclick="goTo(current+1)" aria-label="Next page">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg>
@@ -696,7 +737,7 @@ p.body-text{
 </nav>
 
 <script>
-const total = 6;
+const total = 7;
 let current = 0;
 const filmstrip = document.getElementById('filmstrip');
 const pages = document.querySelectorAll('.page');
@@ -767,19 +808,8 @@ viewport.addEventListener('touchend', (e)=>{
   touchStartY = null;
 }, {passive:true});
 
-// initial render + test counter animation
+// initial render
 render();
-(function countTests(){
-  const el = document.getElementById('testCounter');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ el.textContent = '42/42'; return; }
-  let n = 0;
-  const iv = setInterval(()=>{
-    n++;
-    el.textContent = n + '/42';
-    if(n>=42) clearInterval(iv);
-  }, 26);
-})();
 </script>
 </body>
 </html>
